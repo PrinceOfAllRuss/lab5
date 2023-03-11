@@ -16,20 +16,16 @@ class CommandProcessor: KoinComponent {
         var exitCondition = false
         var result: Result? = Result(orgs, exitCondition)
 
-        while (condition)
-        {
+        while (condition) {
             var command: String = input.getNextWord(null).lowercase()
-            if (!map.keys.contains(command))
-            {
+            if (!map.keys.contains(command)) {
                 input.outMsg("Такой команды не существует\n")
             }
-            else
-            {
+            else {
                 result = map.get(command)!!.action(input)
             }
 
-            if (result?.getExit() == true)
-            {
+            if (result?.getExit() == true) {
                 break
             }
         }

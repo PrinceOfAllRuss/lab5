@@ -15,6 +15,7 @@ class InputSystem : Input {
         }
         index = 0
         list = LinkedList()
+
         val words: List<String> = input.nextLine().split(" ")
         for (str in words) {
             if (!str.isBlank()) {

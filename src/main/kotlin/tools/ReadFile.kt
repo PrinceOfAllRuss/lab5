@@ -1,5 +1,7 @@
 package tools
 
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.IOException
@@ -7,14 +9,31 @@ import java.io.Reader
 import java.io.InputStreamReader
 
 
-class ReadFile {
-    fun read(input: Input): StringBuilder {
+class ReadFile: KoinComponent {
+
+    private val absoluteWay: ArrayList<String> by inject()
+    fun read(input: Input): String? {
+
         val env = input.getNextWord("Введите переменную окружения, содержащую путь к файлу\n")
-        val path = System.getenv(env)
         val s = StringBuilder()
 
+        for(i in absoluteWay) {
+            if (i == env) {
+                return null
+            }
+        }
+        absoluteWay.add(env)
+
+
+        val path = System.getenv(env)
+        if (path == null) {
+            input.outMsg("Данной переменной не существует\n")
+            return null
+        }
+        var reader: InputStreamReader? = null
+
         try {
-            var reader: Reader = InputStreamReader(FileInputStream(path), "UTF8")
+            reader = InputStreamReader(FileInputStream(path), "UTF8")
             var i = -1
 
             while ((reader.read().also { i = it }) != -1) {
@@ -24,13 +43,15 @@ class ReadFile {
             s.append("\nexit")
 
         } catch (e: FileNotFoundException) {
-            input.outMsg("Данного файла не существует")
+            input.outMsg("Данного файла не существует\n")
         } catch (e: IOException) {
-            input.outMsg("Некорректный ввод данных")
+            input.outMsg("Некорректный ввод данных\n")
         } finally {
-            InputStreamReader(FileInputStream(path), "UTF8").close()
+            if (reader != null) {
+                reader.close()
+            }
         }
 
-        return s
+        return s.toString()
     }
 }

@@ -14,7 +14,11 @@ class ExecuteScript: Command, KoinComponent {
     private val description: String = "считать и исполнить скрипт из указанного файла"
     override fun action(input: Input): Result {
         val reader = ReadFile()
-        val s: String = reader.read(input).toString()
+        val s: String? = reader.read(input)
+
+        if (s == null) {
+            return Result(orgs, false)
+        }
 
         val input = InputFile(s)
 
@@ -23,9 +27,9 @@ class ExecuteScript: Command, KoinComponent {
 
         input.close()
 
-        val result = Result(orgs, false)
+        absoluteWay.removeLast()
 
-        return result
+        return Result(orgs, false)
     }
     override fun getDescription(): String = description
 }

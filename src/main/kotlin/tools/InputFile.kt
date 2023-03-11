@@ -16,7 +16,7 @@ class InputFile(s: String?) : Input {
         }
         index = 0
         list = LinkedList()
-        val words: List<String> = input.nextLine().split("\\s")
+        val words: List<String> = input.nextLine().split(" ")
         for (str in words) {
             if (!str.isBlank()) {
                 list.add(str)
@@ -29,9 +29,7 @@ class InputFile(s: String?) : Input {
     }
 
     override fun outMsg(s: String?) {
-        if (s == null)
-            return
-        print(s)
+        return
     }
 
     override fun close() {
