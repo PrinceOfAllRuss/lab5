@@ -23,7 +23,7 @@ class InputSystem : Input {
             }
         }
         if (list.size < 1) {
-            list.add("blank")
+            return " "
         }
         return list[index++]
     }
