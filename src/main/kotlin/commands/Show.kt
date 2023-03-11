@@ -11,14 +11,13 @@ import java.util.*
 class Show: Command, KoinComponent {
 
     private val orgs: LinkedList<Organization> by inject()
-
-    override fun action(input: Input): Result?
-    {
-        for (org in orgs)
-        {
+    private val description: String = "вывести все элементы коллекции"
+    override fun action(input: Input): Result? {
+        for (org in orgs) {
             input.outMsg(org.toString())
         }
 
         return null
     }
+    override fun getDescription(): String = description
 }

@@ -10,11 +10,11 @@ import java.util.*
 class Update: Command, KoinComponent {
 
     private val orgs: LinkedList<Organization> by inject()
-
-    override fun action(input: Input): Result?
-    {
+    private val description: String = "обновить значение элемента коллекции, id которого равен заданному"
+    override fun action(input: Input): Result? {
         val result = Result(orgs, false)
 
         return result
     }
+    override fun getDescription(): String = description
 }

@@ -10,7 +10,7 @@ import tools.Result
 class CountGreaterThanAnnualTurnover: Command, KoinComponent {
 
     private val orgs: LinkedList<Organization> by inject()
-
+    private val description: String = "вывести количество элементов, значение поля annualTurnover которых больше заданного"
     override fun action(input: Input): Result? {
         val turnover: Double = input.getNextWord(null).toDouble()
         var count = 0
@@ -24,4 +24,5 @@ class CountGreaterThanAnnualTurnover: Command, KoinComponent {
 
         return null
     }
+    override fun getDescription(): String = description
 }

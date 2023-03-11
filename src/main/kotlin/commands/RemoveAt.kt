@@ -11,9 +11,8 @@ import java.util.*
 class RemoveAt: Command, KoinComponent {
 
     private val orgs: LinkedList<Organization> by inject()
-
-    override fun action(input: Input): Result
-    {
+    private val description: String = "удалить элемент, находящийся в заданной позиции коллекции"
+    override fun action(input: Input): Result {
         val indexOrg: String = input.getNextWord(null)
         val index = indexOrg.toInt()
         orgs.removeAt(index)
@@ -22,4 +21,5 @@ class RemoveAt: Command, KoinComponent {
 
         return result
     }
+    override fun getDescription(): String = description
 }

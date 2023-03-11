@@ -12,6 +12,7 @@ import java.util.*
 class InsertAt: Command, KoinComponent {
 
     private val orgs: LinkedList<Organization> by inject()
+    private val description: String = "добавить новый элемент в заданную позицию"
 
     override fun action(input: Input): Result? {
         val indexOrg: String = input.getNextWord(null)
@@ -21,4 +22,5 @@ class InsertAt: Command, KoinComponent {
 
         return null
     }
+    override fun getDescription(): String = description
 }

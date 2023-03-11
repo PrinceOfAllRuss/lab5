@@ -11,15 +11,12 @@ import java.util.*
 class RemoveById: Command, KoinComponent {
 
     private val orgs: LinkedList<Organization> by inject()
-
-    override fun action(input: Input): Result
-    {
+    private val description: String = "удалить элемент из коллекции по его id"
+    override fun action(input: Input): Result {
         val id: Int = input.getNextWord(null).toInt()
 
-        for (i in orgs.indices)
-        {
-            if (orgs[i].getId().equals(id))
-            {
+        for (i in orgs.indices) {
+            if (orgs[i].getId().equals(id)) {
                 orgs.removeAt(i)
                 break
             }
@@ -29,4 +26,5 @@ class RemoveById: Command, KoinComponent {
 
         return result
     }
+    override fun getDescription(): String = description
 }

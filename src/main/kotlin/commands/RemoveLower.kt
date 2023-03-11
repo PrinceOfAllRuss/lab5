@@ -11,15 +11,12 @@ import java.util.*
 class RemoveLower: Command, KoinComponent {
 
     private val orgs: LinkedList<Organization> by inject()
-
-    override fun action(input: Input): Result
-    {
+    private val description: String = "удалить из коллекции все элементы, меньшие, чем заданный"
+    override fun action(input: Input): Result {
         val orgsNew: LinkedList<Organization> = LinkedList<Organization>()
         val count: Int = input.getNextWord(null).toInt()
-        for (org in orgs)
-        {
-            if (org.getEmployeesCount() >= count)
-            {
+        for (org in orgs) {
+            if (org.getEmployeesCount() >= count) {
                 orgsNew.add(org)
             }
         }
@@ -28,4 +25,5 @@ class RemoveLower: Command, KoinComponent {
 
         return result
     }
+    override fun getDescription(): String = description
 }

@@ -10,9 +10,10 @@ import java.util.*
 class Info : Command, KoinComponent {
 
     private val orgs: LinkedList<Organization> by inject()
-
+    private val description: String = "вывести информацию о коллекции"
     override fun action(input: Input): Result? {
         input.outMsg("Тип коллекции " + orgs.javaClass.toString())
         return null
     }
+    override fun getDescription(): String = description
 }

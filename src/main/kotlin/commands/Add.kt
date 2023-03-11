@@ -12,6 +12,7 @@ import java.util.LinkedList
 class Add : Command, KoinComponent {
 
     private val orgs: LinkedList<Organization> by inject()
+    private val description: String = "добавить новый элемент в коллекцию"
 
     override fun action(input: Input): Result {
         val orgComp = OrganizationComparator()
@@ -21,5 +22,6 @@ class Add : Command, KoinComponent {
 
         return Result(orgs, false)
     }
+    override fun getDescription(): String = description
 }
 

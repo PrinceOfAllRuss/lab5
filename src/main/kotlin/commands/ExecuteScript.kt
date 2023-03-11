@@ -11,16 +11,15 @@ class ExecuteScript: Command, KoinComponent {
 
     private val absoluteWay: ArrayList<String> by inject()
     private val orgs: LinkedList<Organization> by inject()
-
-    override fun action(input: Input): Result
-    {
+    private val description: String = "считать и исполнить скрипт из указанного файла"
+    override fun action(input: Input): Result {
         val reader = ReadFile()
         val s: String = reader.read(input).toString()
 
         val input = InputFile(s)
 
         val commandProcessor = CommandProcessor()
-            commandProcessor.process(input, orgs)
+            commandProcessor.process(input)
 
         input.close()
 
@@ -28,4 +27,5 @@ class ExecuteScript: Command, KoinComponent {
 
         return result
     }
+    override fun getDescription(): String = description
 }
