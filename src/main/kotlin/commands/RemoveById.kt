@@ -16,7 +16,7 @@ class RemoveById: Command, KoinComponent {
         val id: Int = input.getNextWord(null).toInt()
 
         for (i in orgs.indices) {
-            if (orgs[i].getId().equals(id)) {
+            if (orgs[i].getId()!!.equals(id)) {
                 orgs.removeAt(i)
                 break
             }

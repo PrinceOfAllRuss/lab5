@@ -15,7 +15,7 @@ class FilterStartsWithName: Command, KoinComponent {
     override fun action(input: Input): Result? {
         val str: String = input.getNextWord(null)
         for (org in orgs) {
-            if (org!!.getName().contains(str)) {
+            if (org!!.getName()!!.contains(str)) {
                 input.outMsg(org.toString())
             }
         }

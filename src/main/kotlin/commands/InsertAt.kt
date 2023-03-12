@@ -18,7 +18,7 @@ class InsertAt: Command, KoinComponent {
         val indexOrg: String = input.getNextWord(null)
         val index = indexOrg.toInt()
         val creater = CreateOrganization()
-        orgs.add(index, creater.create(input))
+        orgs.add(index, creater.create(input, null))
 
         return null
     }

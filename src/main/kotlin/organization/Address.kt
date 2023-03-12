@@ -8,15 +8,11 @@ class Address {
         this.street = street
         this.zipCode = zipCode
     }
-    fun getStreet(): String {
-        return street
-    }
+    fun getStreet(): String = street
     fun setStreet(street: String) {
         this.street = street
     }
-    fun getZipCode(): String {
-        return zipCode
-    }
+    fun getZipCode(): String = zipCode
     fun setZipCode(zipCode: String) {
         this.zipCode = zipCode
     }

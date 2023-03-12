@@ -15,7 +15,7 @@ class CountGreaterThanAnnualTurnover: Command, KoinComponent {
         val turnover: Double = input.getNextWord(null).toDouble()
         var count = 0
         for (org in orgs) {
-            if (org!!.getAnnualTurnover() > turnover) {
+            if (org!!.getAnnualTurnover()!! > turnover) {
                 count++
             }
         }

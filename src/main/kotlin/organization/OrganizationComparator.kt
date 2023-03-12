@@ -5,7 +5,7 @@ class OrganizationComparator : Comparator<Organization?> {
         if (a!!.getEmployeesCount() === b!!.getEmployeesCount()) {
             return 0
         }
-        return if (a!!.getEmployeesCount() > b!!.getEmployeesCount()) {
+        return if ( a!!.getEmployeesCount()!! > b!!.getEmployeesCount()!! ) {
             1
         } else {
             -1

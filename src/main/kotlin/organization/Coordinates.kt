@@ -7,12 +7,8 @@ class Coordinates {
         this.x = x
         this.y = y
     }
-    fun getX(): Int {
-        return x
-    }
-    fun getY(): Long {
-        return y
-    }
+    fun getX(): Int = x
+    fun getY(): Long = y
     fun setX(x: Int) {
         this.x = x
     }

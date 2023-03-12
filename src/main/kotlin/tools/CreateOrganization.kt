@@ -1,135 +1,203 @@
 package tools
 
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import organization.Organization
 import organization.OrganizationType
+import java.util.*
 
 
 class CreateOrganization {
-    fun create(input: Input): Organization {
+    fun create( input: Input, org: Organization? ): Organization {
 
-        var name: String = "name"
-        while(true) {
+        var organization: Organization = Organization()
+        if ( org != null ) {
+            organization = org
+        }
 
-            name = input.getNextWord("Введите название вашей организации\n")
+        var newName: String? = ""
+        var name: String? = ""
+        if ( org != null ) {
+            name = organization.getName()
+        }
+        while ( true ) {
+            newName = input.getNextWord("Введите название вашей организации\n")
 
-            if(name.isBlank()) {
+            if ( newName.isBlank() ) {
+                if ( org != null ) {
+                    organization.setName(name!!)
+                    break
+                }
                 input.outMsg("Неподходящие данные\n")
-            }
-            else {
+            } else {
+                organization.setName(newName!!)
                 break
             }
         }
 
-        var annualTurnoverOrg: String = "0"
-        while(true) {
-            try {
-                annualTurnoverOrg = input.getNextWord("Введите годовой оборот вашей организации\n")
-
-                if(annualTurnoverOrg.isBlank() || annualTurnoverOrg.toInt() <= 0) {
-                    input.outMsg("Неподходящие данные\n")
-                }
-                else {
-                    break
-                }
-            } catch (e: NumberFormatException) {
-                input.outMsg("Неверный тип данных\n")
-            }
+        var newAnnualTurnover: String = ""
+        var annualTurnover: String = ""
+        if ( org != null ) {
+            annualTurnover = organization.getAnnualTurnover().toString()
         }
-        var annualTurnover = annualTurnoverOrg.toDouble()
-
-        var employeesCountOrg: String = "0"
-        while(true) {
+        while ( true ) {
             try {
-                employeesCountOrg = input.getNextWord("Введите количество сотрудников в вашей организации\n")
+                newAnnualTurnover = input.getNextWord( "Введите годовой оборот вашей организации\n" )
 
-                if (employeesCountOrg.isBlank() || employeesCountOrg.toInt() <= 0) {
-                    input.outMsg("Неподходящие данные\n")
+                if ( newAnnualTurnover.isBlank() || newAnnualTurnover.toInt() <= 0 ) {
+                    if ( org != null ) {
+                        organization.setAnnualTurnover( annualTurnover!!.toDouble() )
+                        break
+                    }
+                    input.outMsg( "Неподходящие данные\n")
                 }
                 else {
+                    organization.setAnnualTurnover( newAnnualTurnover!!.toDouble() )
                     break
                 }
-            } catch (e: NumberFormatException) {
-                input.outMsg("Неверный тип данных\n")
+            } catch ( e: NumberFormatException ) {
+                input.outMsg( "Неверный тип данных\n" )
             }
         }
 
-        var employeesCount = employeesCountOrg.toInt()
-
-        val organization = Organization(name, annualTurnover, employeesCount)
-
-        var coordinatesX: String = "0"
-        var coordinatesY: String = "0"
-        while(true) {
+        var newEmployeesCount: String = ""
+        var employeesCount: String = ""
+        if ( org != null ) {
+            employeesCount = organization.getEmployeesCount().toString()
+        }
+        while ( true ) {
             try {
-                coordinatesX = input.getNextWord("Введите координаты вашей организации по оси X\n")
+                newEmployeesCount = input.getNextWord( "Введите количество сотрудников в вашей организации\n" )
 
-                if (coordinatesX.isBlank() || coordinatesX.toInt() <= -312) {
-                    input.outMsg("Неподходящие данные\n")
+                if ( newEmployeesCount.isBlank() || newEmployeesCount.toInt() <= 0 ) {
+                    if ( org != null ) {
+                        organization.setEmployeesCount( employeesCount!!.toInt() )
+                        break
+                    }
+                    input.outMsg( "Неподходящие данные\n" )
                 }
                 else {
+                    organization.setEmployeesCount(newEmployeesCount!!.toInt())
                     break
                 }
             } catch (e: NumberFormatException) {
-                input.outMsg("Неверный тип данных\n")
+                input.outMsg( "Неверный тип данных\n" )
             }
         }
-        while(true) {
-            try {
-                coordinatesY = input.getNextWord("Введите координаты вашей организации по оси Y\n")
 
-                if (coordinatesY.isBlank() || coordinatesY.toInt() > 212) {
-                    input.outMsg("Неподходящие данные\n")
+        var newX: String? = ""
+        var newY: String? = ""
+        var x: String? = ""
+        var y: String? = ""
+        if ( org != null ) {
+            x = organization.getCoordinatesX()
+            y = organization.getCoordinatesY()
+        }
+        while ( true ) {
+            try {
+                newX = input.getNextWord( "Введите координаты вашей организации по оси X\n" )
+
+                if ( newX.isBlank() || newX.toInt() <= -312 ) {
+                    if ( org != null ) {
+                        organization.setCoordinatesX(x!!.toInt())
+                        break
+                    }
+                    input.outMsg( "Неподходящие данные\n" )
                 }
                 else {
+                    organization.setCoordinatesX(newX!!.toInt())
                     break
                 }
-            } catch (e: NumberFormatException) {
-                input.outMsg("Неверный тип данных\n")
+            } catch ( e: NumberFormatException ) {
+                input.outMsg( "Неверный тип данных\n" )
             }
         }
-        val x = coordinatesX.toInt()
-        val y = coordinatesY.toLong()
-        organization.setCoordinates(x, y)
+        while ( true ) {
+            try {
+                newY = input.getNextWord( "Введите координаты вашей организации по оси Y\n" )
+
+                if ( newY.isBlank() || newY.toInt() > 212 ) {
+                    if ( org != null ) {
+                        organization.setCoordinatesY(y!!.toLong())
+                        break
+                    }
+                    input.outMsg( "Неподходящие данные\n" )
+                }
+                else {
+                    organization.setCoordinatesY(newY!!.toLong())
+                    break
+                }
+            } catch ( e: NumberFormatException ) {
+                input.outMsg( "Неверный тип данных\n" )
+            }
+        }
 
         val typeStr = StringBuilder()
-        typeStr.append("Выбирете тип вашей организации из данных вариантов\n")
+        typeStr.append( "Выбирете тип вашей организации из данных вариантов\n" )
         val organizationType = OrganizationType.values()
-        for (i in organizationType.indices) {
-            typeStr.append(organizationType[i].toString() + "\n")
+        for ( i in organizationType.indices ) {
+            typeStr.append( organizationType[i].toString() + "\n" )
         }
 
-        while(true) {
+        var newTypeOrganization: String = ""
+        var typeOrganization: String = ""
+        if ( org != null ) {
+            typeOrganization = organization.getType()!!
+        }
+        while ( true ) {
             try {
-                val typeOrganization = input.getNextWord(typeStr.toString())
-                val type = OrganizationType.valueOf(typeOrganization.uppercase())
-                organization.setType(type)
-                break
-            } catch (e: IllegalArgumentException) {
-                input.outMsg("Неподходящие данные\n")
+                newTypeOrganization = input.getNextWord( typeStr.toString() )
+                if ( newTypeOrganization.isBlank() ) {
+                    if ( org != null ) {
+                        organization.setType( OrganizationType.valueOf( typeOrganization.uppercase() ) )
+                        break
+                    }
+                    input.outMsg( "Неподходящие данные\n" )
+                } else {
+                    organization.setType( OrganizationType.valueOf( newTypeOrganization.uppercase() ) )
+                    break
+                }
+            } catch ( e: IllegalArgumentException ) {
+                input.outMsg( "Неподходящие данные\n" )
             }
         }
 
-        var address: String = "name"
-        var code: String = "007"
-        while(true) {
-            address = input.getNextWord("Введите название улицы, на которой расположена ваша организация\n")
-            if(address.isBlank()) {
-                input.outMsg("Неподходящие данные\n")
+        var newStreet: String = ""
+        var newCode: String = ""
+        var street: String = ""
+        var code: String = ""
+        if ( org != null ) {
+            street = organization.getPostalAddressStreet()
+            code = organization.getPostalAddressZipCode()
+        }
+        while ( true ) {
+            newStreet = input.getNextWord( "Введите название улицы, на которой расположена ваша организация\n" )
+            if ( newStreet.isBlank() ) {
+                if ( org != null ) {
+                    organization.setPostalAddressStreet(street)
+                    break
+                }
+                input.outMsg( "Неподходящие данные\n" )
             }
             else {
+                organization.setPostalAddressStreet(newStreet)
                 break
             }
         }
-        while(true) {
-            code = input.getNextWord("Введите код улицы, на которой расположена ваша организация\n")
-            if(code.isBlank() || code.length > 27) {
-                input.outMsg("Неподходящие данные\n")
+        while ( true ) {
+            newCode = input.getNextWord( "Введите код улицы, на которой расположена ваша организация\n" )
+            if ( newCode.isBlank() || code.length > 27 ) {
+                if ( org != null ) {
+                    organization.setPostalAddressZipCode(code)
+                    break
+                }
+                input.outMsg( "Неподходящие данные\n" )
             }
             else {
+                organization.setPostalAddressZipCode(newCode)
                 break
             }
         }
-        organization.setPostalAddress(address, code)
 
         return organization
     }

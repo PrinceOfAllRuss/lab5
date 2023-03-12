@@ -16,7 +16,7 @@ class RemoveLower: Command, KoinComponent {
         val orgsNew: LinkedList<Organization> = LinkedList<Organization>()
         val count: Int = input.getNextWord(null).toInt()
         for (org in orgs) {
-            if (org.getEmployeesCount() >= count) {
+            if (org.getEmployeesCount()!! >= count) {
                 orgsNew.add(org)
             }
         }

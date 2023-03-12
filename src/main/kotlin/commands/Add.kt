@@ -17,7 +17,7 @@ class Add : Command, KoinComponent {
     override fun action(input: Input): Result {
         val orgComp = OrganizationComparator()
         val creater = CreateOrganization()
-        orgs.add(creater.create(input))
+        orgs.add(creater.create(input, null))
         orgs.sortWith(orgComp)
 
         return Result(orgs, false)
