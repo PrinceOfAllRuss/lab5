@@ -3,22 +3,21 @@ package tools
 import commands.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import organization.MyCollection
 import organization.Organization
 import java.util.*
 
 class CommandProcessor: KoinComponent {
 
-    private val orgs: LinkedList<Organization> by inject()
     private val map: Map<String, Command> by inject()
     fun process(input: Input) {
 
-        var condition: Boolean = true
-        var exitCondition = false
-        var result: Result? = Result(orgs, exitCondition)
+        var result: Result? = Result(false)
 
-        while (condition) {
+        while ( true ) {
             var command: String = input.getNextWord(null).lowercase()
-            if (!map.keys.contains(command)) {
+
+            if ( !map.keys.contains(command) ) {
                 input.outMsg("Такой команды не существует\n")
             }
             else {

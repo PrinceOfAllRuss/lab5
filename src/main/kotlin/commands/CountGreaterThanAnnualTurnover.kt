@@ -2,14 +2,14 @@ package commands
 
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import organization.MyCollection
 import organization.Organization
 import tools.Input
-import java.util.*
 import tools.Result
 
 class CountGreaterThanAnnualTurnover: Command, KoinComponent {
 
-    private val orgs: LinkedList<Organization> by inject()
+    private val orgs: MyCollection<Organization> by inject()
     private val description: String = "вывести количество элементов, значение поля annualTurnover которых больше заданного"
     override fun action(input: Input): Result? {
         val turnover: Double = input.getNextWord(null).toDouble()

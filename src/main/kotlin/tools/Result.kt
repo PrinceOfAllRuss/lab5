@@ -1,5 +1,8 @@
 package tools
 
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import organization.MyCollection
 import organization.Organization
 import java.util.LinkedList
 
@@ -13,12 +16,11 @@ data class NewResult(
     val status: CommandResult,
 )
 
-class Result { //TODO dataclass
-    private var orgs: LinkedList<Organization>?
+class Result: KoinComponent { //TODO dataclass
+    private val orgs: MyCollection<Organization> by inject()
     private var exit: Boolean?
 
-    constructor(orgs: LinkedList<Organization>?, exit: Boolean?) {
-        this.orgs = orgs
+    constructor(exit: Boolean?) {
         this.exit = exit
     }
 

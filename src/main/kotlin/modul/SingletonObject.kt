@@ -2,6 +2,7 @@ package modul
 
 import commands.*
 import org.koin.dsl.module
+import organization.MyCollection
 import organization.Organization
 import java.util.*
 import kotlin.collections.ArrayList
@@ -9,7 +10,7 @@ import kotlin.collections.ArrayList
 object SingletonObject {
 
     val mod = module {
-        single<LinkedList<Organization>> { LinkedList() }
+        single<MyCollection<Organization>> { MyCollection() }
         single<ArrayList<String>> { ArrayList() }
 
         val help: Help = Help()

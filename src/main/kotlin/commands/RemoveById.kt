@@ -2,6 +2,7 @@ package commands
 
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import organization.MyCollection
 import organization.Organization
 import tools.Input
 import tools.Result
@@ -10,21 +11,19 @@ import java.util.*
 
 class RemoveById: Command, KoinComponent {
 
-    private val orgs: LinkedList<Organization> by inject()
+    private val orgs: MyCollection<Organization> by inject()
     private val description: String = "удалить элемент из коллекции по его id"
-    override fun action(input: Input): Result {
+    override fun action(input: Input): Result? {
         val id: Int = input.getNextWord(null).toInt()
 
-        for (i in orgs.indices) {
-            if (orgs[i].getId()!!.equals(id)) {
-                orgs.removeAt(i)
+        for ( org in orgs ) {
+            if ( org.getId() == id ) {
+                orgs.remove( org )
                 break
             }
         }
 
-        val result = Result(orgs, false)
-
-        return result
+        return null
     }
     override fun getDescription(): String = description
 }

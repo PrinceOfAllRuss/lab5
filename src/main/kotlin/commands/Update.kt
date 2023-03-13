@@ -2,6 +2,7 @@ package commands
 
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import organization.MyCollection
 import organization.Organization
 import organization.OrganizationComparator
 import tools.CreateOrganization
@@ -11,11 +12,11 @@ import java.util.*
 
 class Update: Command, KoinComponent {
 
-    private val orgs: LinkedList<Organization> by inject()
+    private val orgs: MyCollection<Organization> by inject()
     private val description: String = "обновить значение элемента коллекции, id которого равен заданному"
     override fun action( input: Input ): Result? {
         val orgComp = OrganizationComparator()
-        val creater = CreateOrganization()
+        val creator = CreateOrganization()
         val idOrg: String = input.getNextWord( null )
         val id = idOrg.toInt()
         var lastOrganization: Organization? = null
@@ -27,15 +28,13 @@ class Update: Command, KoinComponent {
             }
         }
 
-        val newOrganization: Organization = creater.create( input, lastOrganization )
+        val newOrganization: Organization = creator.create( input, lastOrganization )
 
         orgs.remove( lastOrganization )
         orgs.add( newOrganization )
         orgs.sortWith( orgComp )
 
-        val result = Result( orgs, false )
-
-        return result
+        return null
     }
     override fun getDescription(): String = description
 }

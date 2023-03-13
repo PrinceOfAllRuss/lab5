@@ -2,6 +2,7 @@ package commands
 
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import organization.MyCollection
 import organization.Organization
 import tools.Input
 import tools.Result
@@ -10,20 +11,17 @@ import java.util.*
 
 class RemoveLower: Command, KoinComponent {
 
-    private val orgs: LinkedList<Organization> by inject()
+    private val orgs: MyCollection<Organization> by inject()
     private val description: String = "удалить из коллекции все элементы, меньшие, чем заданный"
-    override fun action(input: Input): Result {
-        val orgsNew: LinkedList<Organization> = LinkedList<Organization>()
+    override fun action(input: Input): Result? {
         val count: Int = input.getNextWord(null).toInt()
-        for (org in orgs) {
-            if (org.getEmployeesCount()!! >= count) {
-                orgsNew.add(org)
+        for ( org in orgs ) {
+            if ( org.getEmployeesCount()!! >= count ) {
+                orgs.remove( org )
             }
         }
 
-        val result = Result(orgsNew, false)
-
-        return result
+        return null
     }
     override fun getDescription(): String = description
 }
