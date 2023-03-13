@@ -3,9 +3,7 @@ package tools
 import commands.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import organization.MyCollection
-import organization.Organization
-import java.util.*
+import tools.result.Result
 
 class CommandProcessor: KoinComponent {
 
@@ -21,7 +19,11 @@ class CommandProcessor: KoinComponent {
                 input.outMsg("Такой команды не существует\n")
             }
             else {
-                result = map.get(command)!!.action(input)
+                try {
+                    result = map.get(command)!!.action(input)
+                } catch ( e: NumberFormatException ) {
+                    input.outMsg("Неверные данные\n")
+                }
             }
 
             if (result?.getExit() == true) {

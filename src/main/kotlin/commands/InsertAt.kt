@@ -6,8 +6,7 @@ import organization.MyCollection
 import organization.Organization
 import tools.CreateOrganization
 import tools.Input
-import tools.Result
-import java.util.*
+import tools.result.Result
 
 
 class InsertAt: Command, KoinComponent {

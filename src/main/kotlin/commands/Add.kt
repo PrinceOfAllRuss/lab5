@@ -7,7 +7,7 @@ import organization.Organization
 import organization.OrganizationComparator
 import tools.CreateOrganization
 import tools.Input
-import tools.Result
+import tools.result.Result
 
 class Add : Command, KoinComponent {
 

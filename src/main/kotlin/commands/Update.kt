@@ -7,8 +7,7 @@ import organization.Organization
 import organization.OrganizationComparator
 import tools.CreateOrganization
 import tools.Input
-import tools.Result
-import java.util.*
+import tools.result.Result
 
 class Update: Command, KoinComponent {
 

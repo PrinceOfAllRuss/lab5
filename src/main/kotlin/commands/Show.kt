@@ -5,8 +5,7 @@ import org.koin.core.component.inject
 import organization.MyCollection
 import organization.Organization
 import tools.Input
-import tools.Result
-import java.util.*
+import tools.result.Result
 
 
 class Show: Command, KoinComponent {

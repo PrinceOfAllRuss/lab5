@@ -1,7 +1,7 @@
 package commands
 
 import tools.Input
-import tools.Result
+import tools.result.Result
 
 interface Command {
     fun action(input: Input): Result?

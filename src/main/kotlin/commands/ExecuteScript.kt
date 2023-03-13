@@ -3,6 +3,7 @@ package commands
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import tools.*
+import tools.result.Result
 import kotlin.collections.ArrayList
 
 class ExecuteScript: Command, KoinComponent {

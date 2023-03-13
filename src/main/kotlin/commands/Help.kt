@@ -3,7 +3,7 @@ package commands
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import tools.Input
-import tools.Result
+import tools.result.Result
 
 class Help : Command, KoinComponent {
 
