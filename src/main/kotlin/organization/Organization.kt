@@ -20,39 +20,26 @@ class Organization {
 //        name = null
 //
 //    }
-//    constructor(name: String, annualTurnover: Double, employeesCount: Int) {
-//        this.id = Math.round(Math.random() * 10000).toInt()
-//        this.name = name
-//        val coordinates = Coordinates(0, 0L)
-//        this.coordinates = coordinates
-//        creationDate = LocalDateTime.now()
-//        this.annualTurnover = annualTurnover
-//        this.employeesCount = employeesCount
-//        type = OrganizationType.PUBLIC
-//        val postalAddress = Address(name, name)
-//        this.postalAddress = postalAddress
-//        this.id = id
-//    }
 
     override fun toString(): String {
         val s = StringBuilder()
         s.append("Id организации: ").append(id)
         s.append("\nИмя организации: ").append(name)
-        s.append("\nКоординаты организации: ").append(getCoordinates())
+        s.append("\nКоординаты организации: ").append(coordinates.toString())
         s.append("\nВремя создания организации: ").append(creationDate)
         s.append("\nГодовой оборот организации: ").append(annualTurnover)
         s.append("\nКоличество сотрудников в организации: ").append(employeesCount)
         s.append("\nТип организации: ").append(type)
-        s.append("\nНазвание и код улицы, на которой расположена организация: ").append(getPostalAddress()).append("\n")
+        s.append("\nНазвание и код улицы, на которой расположена организация: ").append(postalAddress.toString()).append("\n")
         return s.toString()
     }
     fun getEmployeesCount(): Int? = employeesCount
     fun setEmployeesCount(employeesCount: Int) {
         this.employeesCount = employeesCount
     }
-    fun getCoordinates(): String? {
-        var s = "(" + coordinates!!.getX() + ";" + coordinates!!.getY() + ")"
-        return s
+    fun getCoordinates(): Coordinates? = coordinates
+    fun setCoordinates(coordinates: Coordinates) {
+        this.coordinates = coordinates
     }
     fun getCoordinatesX(): String? {
         return coordinates!!.getX().toString()
@@ -66,8 +53,9 @@ class Organization {
     fun setCoordinatesY(y: Long) {
         coordinates!!.setY(y)
     }
-    fun getPostalAddress(): String {
-        return postalAddress!!.getStreet() + " " + postalAddress!!.getZipCode()
+    fun getPostalAddress(): Address? = postalAddress
+    fun setPostalAddress(postalAddress: Address?) {
+        this.postalAddress = postalAddress
     }
     fun getPostalAddressStreet(): String = postalAddress!!.getStreet()
     fun getPostalAddressZipCode(): String = postalAddress!!.getZipCode()
@@ -77,7 +65,7 @@ class Organization {
     fun setPostalAddressZipCode(zipCode: String) {
         postalAddress!!.setZipCode(zipCode)
     }
-    fun getType(): String? = type.toString()
+    fun getType(): OrganizationType? = type
     fun setType(type: OrganizationType) {
         this.type = type
     }
@@ -90,4 +78,11 @@ class Organization {
         this.name = name
     }
     fun getId(): Int? = id
+    fun setId(id: Int?) {
+        this.id = id
+    }
+    fun getCreationDate(): LocalDateTime? = creationDate
+    fun setCreationDate(creationDate: LocalDateTime?) {
+        this.creationDate = creationDate
+    }
 }

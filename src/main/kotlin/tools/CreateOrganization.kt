@@ -139,7 +139,7 @@ class CreateOrganization {
         var newTypeOrganization: String = ""
         var typeOrganization: String = ""
         if ( org != null ) {
-            typeOrganization = organization.getType()!!
+            typeOrganization = organization.getType()!!.toString()
         }
         while ( true ) {
             try {

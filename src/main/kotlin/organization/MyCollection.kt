@@ -4,7 +4,10 @@ import java.time.LocalDateTime
 import java.util.LinkedList
 
 class MyCollection<T>: LinkedList<T>() {
-    private val creationDate : LocalDateTime? = LocalDateTime.now()
+    private var creationDate : LocalDateTime? = LocalDateTime.now()
     fun getCreationDate(): LocalDateTime? = creationDate
+    fun setCreationDate( creationDate: LocalDateTime? ) {
+        this.creationDate = creationDate
+    }
 
 }

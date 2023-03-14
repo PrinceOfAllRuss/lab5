@@ -16,4 +16,5 @@ class Address {
     fun setZipCode(zipCode: String) {
         this.zipCode = zipCode
     }
+    override fun toString(): String = street + ", " + zipCode
 }

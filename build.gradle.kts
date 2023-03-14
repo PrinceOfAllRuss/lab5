@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     implementation("io.insert-koin:koin-core:3.3.3")
+    implementation("com.thoughtworks.xstream:xstream:1.4.20")
     testImplementation(kotlin("test"))
 }
 

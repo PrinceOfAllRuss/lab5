@@ -15,4 +15,5 @@ class Coordinates {
     fun setY(y: Long) {
         this.y = y
     }
+    override fun toString(): String = "(" + x + ";" + y + ")"
 }
