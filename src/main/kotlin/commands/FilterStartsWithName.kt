@@ -8,7 +8,7 @@ import tools.Input
 import tools.result.Result
 
 
-class FilterStartsWithName: Command, KoinComponent {
+class FilterStartsWithName: Command, KoinComponent { //TODO исправить
 
     private val orgs: MyCollection<Organization> by inject()
     private val description: String = "вывести элементы, значение поля name которых начинается с заданной подстроки"

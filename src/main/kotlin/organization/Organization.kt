@@ -1,8 +1,7 @@
 package organization
 
-import commands.CountGreaterThanAnnualTurnover
-import commands.RemoveAllByEmployeesCount
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class Organization {
@@ -22,11 +21,12 @@ class Organization {
 //    }
 
     override fun toString(): String {
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
         val s = StringBuilder()
         s.append("Id организации: ").append(id)
         s.append("\nИмя организации: ").append(name)
         s.append("\nКоординаты организации: ").append(coordinates.toString())
-        s.append("\nВремя создания организации: ").append(creationDate)
+        s.append("\nВремя создания организации: ").append(creationDate!!.format(formatter))
         s.append("\nГодовой оборот организации: ").append(annualTurnover)
         s.append("\nКоличество сотрудников в организации: ").append(employeesCount)
         s.append("\nТип организации: ").append(type)

@@ -5,6 +5,7 @@ import org.koin.core.component.inject
 import organization.MyCollection
 import organization.Organization
 import organization.OrganizationComparator
+import tools.ConversionXMLtoObject
 import tools.CreateOrganization
 import tools.Input
 import tools.result.Result

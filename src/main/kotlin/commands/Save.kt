@@ -9,32 +9,30 @@ import organization.Organization
 import tools.Input
 import tools.WriteFile
 import tools.result.Result
-import kotlin.text.StringBuilder
 
 class Save: Command, KoinComponent {
 
     private val orgs: MyCollection<Organization> by inject()
     private val description: String = "сохранить коллекцию в файл"
-    override fun action(input: Input): Result?
-    {
+    override fun action(input: Input): Result? {
 
-        val xs: XStream = XStream()
+        val xml: XStream = XStream()
         var orgsXML: StringBuilder = StringBuilder()
         var i: Int = 0
+        var time: String
+        var list: List<String>
+        var creationDate: StringBuilder = StringBuilder()
 
         for ( org in orgs ) {
-            xs.alias("organization_" + i, org.javaClass)
-            orgsXML.append( xs.toXML(org) + "\n")
+            xml.alias("organization_" + i, org.javaClass)
+            orgsXML.append( xml.toXML(org) + "\n")
             ++i
         }
 
-//        input.outMsg(orgsXML.toString())
-
         var collectionXML: StringBuilder = StringBuilder()
         collectionXML.append("<Collection>\n")
-        collectionXML.append("\t<creationDate>" + orgs.getCreationDate() + "</creationDate>\n")
+        collectionXML.append("\t<dateOfCreation>" + orgs.getCreationDate() + "</dateOfCreation>\n")
         collectionXML.append("</Collection>\n")
-//        input.outMsg(collectionXML.toString())
 
         val writer: WriteFile = WriteFile()
         input.outMsg("Введите переменную окружения, содержащую путь к файлу, для записи данных коллекции\n")
