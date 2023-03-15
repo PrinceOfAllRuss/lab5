@@ -27,11 +27,14 @@ class Update: Command, KoinComponent {
             }
         }
 
-        val newOrganization: Organization = creator.create( input, lastOrganization )
+        val newOrganization: Organization? = creator.create( input, lastOrganization )
 
-        orgs.remove( lastOrganization )
-        orgs.add( newOrganization )
+        if ( newOrganization != null ) {
+            orgs.remove( lastOrganization )
+            orgs.add( newOrganization )
+        }
         orgs.sortWith( orgComp )
+
 
         return null
     }

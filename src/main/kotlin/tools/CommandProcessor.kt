@@ -23,6 +23,9 @@ class CommandProcessor: KoinComponent {
                     result = map.get(command)!!.action(input)
                 } catch ( e: NumberFormatException ) {
                     input.outMsg("Неверные данные\n")
+                    if ( input.javaClass == InputFile("").javaClass ) {
+                        continue
+                    }
                 }
             }
 

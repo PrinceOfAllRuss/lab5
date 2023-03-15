@@ -5,7 +5,7 @@ import organization.OrganizationType
 
 
 class CreateOrganization {
-    fun create( input: Input, org: Organization? ): Organization {
+    fun create( input: Input, org: Organization? ): Organization? {
 
         var organization: Organization = Organization()
         if ( org != null ) {
@@ -26,6 +26,9 @@ class CreateOrganization {
                     break
                 }
                 input.outMsg("Неподходящие данные\n")
+                if ( input.javaClass == InputFile("").javaClass ) {
+                    return null
+                }
             } else {
                 organization.setName(newName!!)
                 break
@@ -47,6 +50,9 @@ class CreateOrganization {
                         break
                     }
                     input.outMsg( "Неподходящие данные\n")
+                    if ( input.javaClass == InputFile("").javaClass ) {
+                        return null
+                    }
                 }
                 else {
                     organization.setAnnualTurnover( newAnnualTurnover!!.toDouble() )
@@ -54,6 +60,9 @@ class CreateOrganization {
                 }
             } catch ( e: NumberFormatException ) {
                 input.outMsg( "Неверный тип данных\n" )
+                if ( input.javaClass == InputFile("").javaClass ) {
+                    return null
+                }
             }
         }
 
@@ -72,6 +81,9 @@ class CreateOrganization {
                         break
                     }
                     input.outMsg( "Неподходящие данные\n" )
+                    if ( input.javaClass == InputFile("").javaClass ) {
+                        return null
+                    }
                 }
                 else {
                     organization.setEmployeesCount(newEmployeesCount!!.toInt())
@@ -79,6 +91,9 @@ class CreateOrganization {
                 }
             } catch (e: NumberFormatException) {
                 input.outMsg( "Неверный тип данных\n" )
+                if ( input.javaClass == InputFile("").javaClass ) {
+                    return null
+                }
             }
         }
 
@@ -100,6 +115,9 @@ class CreateOrganization {
                         break
                     }
                     input.outMsg( "Неподходящие данные\n" )
+                    if ( input.javaClass == InputFile("").javaClass ) {
+                        return null
+                    }
                 }
                 else {
                     organization.setCoordinatesX(newX!!.toInt())
@@ -107,6 +125,9 @@ class CreateOrganization {
                 }
             } catch ( e: NumberFormatException ) {
                 input.outMsg( "Неверный тип данных\n" )
+                if ( input.javaClass == InputFile("").javaClass ) {
+                    return null
+                }
             }
         }
         while ( true ) {
@@ -119,6 +140,9 @@ class CreateOrganization {
                         break
                     }
                     input.outMsg( "Неподходящие данные\n" )
+                    if ( input.javaClass == InputFile("").javaClass ) {
+                        return null
+                    }
                 }
                 else {
                     organization.setCoordinatesY(newY!!.toLong())
@@ -126,6 +150,9 @@ class CreateOrganization {
                 }
             } catch ( e: NumberFormatException ) {
                 input.outMsg( "Неверный тип данных\n" )
+                if ( input.javaClass == InputFile("").javaClass ) {
+                    return null
+                }
             }
         }
 
@@ -150,12 +177,18 @@ class CreateOrganization {
                         break
                     }
                     input.outMsg( "Неподходящие данные\n" )
+                    if ( input.javaClass == InputFile("").javaClass ) {
+                        return null
+                    }
                 } else {
                     organization.setType( OrganizationType.valueOf( newTypeOrganization.uppercase() ) )
                     break
                 }
             } catch ( e: IllegalArgumentException ) {
                 input.outMsg( "Неподходящие данные\n" )
+                if ( input.javaClass == InputFile("").javaClass ) {
+                    return null
+                }
             }
         }
 
@@ -175,6 +208,9 @@ class CreateOrganization {
                     break
                 }
                 input.outMsg( "Неподходящие данные\n" )
+                if ( input.javaClass == InputFile("").javaClass ) {
+                    return null
+                }
             }
             else {
                 organization.setPostalAddressStreet(newStreet)
@@ -189,6 +225,9 @@ class CreateOrganization {
                     break
                 }
                 input.outMsg( "Неподходящие данные\n" )
+                if ( input.javaClass == InputFile("").javaClass ) {
+                    return null
+                }
             }
             else {
                 organization.setPostalAddressZipCode(newCode)
