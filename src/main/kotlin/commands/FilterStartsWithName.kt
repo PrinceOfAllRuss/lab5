@@ -8,15 +8,31 @@ import tools.Input
 import tools.result.Result
 
 
-class FilterStartsWithName: Command, KoinComponent { //TODO исправить
+class FilterStartsWithName: Command, KoinComponent {
 
     private val orgs: MyCollection<Organization> by inject()
     private val description: String = "вывести элементы, значение поля name которых начинается с заданной подстроки"
     override fun action(input: Input): Result? {
         val str: String = input.getNextWord(null)
         for (org in orgs) {
-            if (org!!.getName()!!.contains(str)) {
-                input.outMsg(org.toString())
+
+            if ( str.length > org.getName()!!.length) {
+                continue
+            }
+
+            val name = str.toCharArray()
+            val orgName = org.getName()!!.toCharArray()
+            var condition = true
+
+            for (i in 0..name.size-1) {
+                if ( name[i] != orgName[i] ) {
+                    condition = false
+                    break
+                }
+            }
+
+            if ( condition ) {
+                input.outMsg( org.toString() )
             }
         }
 
