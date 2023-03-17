@@ -5,9 +5,20 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import tools.result.Result
 
+/**
+ * Command processor
+ *
+ * @constructor Create empty Command processor
+ */
 class CommandProcessor: KoinComponent {
 
     private val map: Map<String, Command> by inject()
+
+    /**
+     * Process
+     *
+     * @param input
+     */
     fun process(input: Input) {
 
         var result: Result? = Result(false)

@@ -8,10 +8,22 @@ import tools.Input
 import tools.result.Result
 
 
+/**
+ * Filter starts with name
+ *
+ * @constructor Create empty Filter starts with name
+ */
 class FilterStartsWithName: Command, KoinComponent {
 
     private val orgs: MyCollection<Organization> by inject()
     private val description: String = "вывести элементы, значение поля name которых начинается с заданной подстроки"
+
+    /**
+     * Action
+     *
+     * @param input
+     * @return
+     */
     override fun action(input: Input): Result? {
         val str: String = input.getNextWord(null)
         for (org in orgs) {
@@ -38,5 +50,11 @@ class FilterStartsWithName: Command, KoinComponent {
 
         return null
     }
+
+    /**
+     * Get description
+     *
+     * @return
+     */
     override fun getDescription(): String = description
 }

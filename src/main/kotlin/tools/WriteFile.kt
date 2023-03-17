@@ -5,7 +5,19 @@ import java.io.BufferedWriter
 import java.io.FileWriter
 import java.io.IOException
 
+/**
+ * Write file
+ *
+ * @constructor Create empty Write file
+ */
 class WriteFile {
+    /**
+     * Write
+     *
+     * @param input
+     * @param s
+     * @return
+     */
     fun write(input: Input, s: String): Result? {
         val env = input.getNextWord(null)
 

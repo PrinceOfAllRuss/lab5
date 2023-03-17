@@ -10,11 +10,22 @@ import tools.CreateOrganization
 import tools.Input
 import tools.result.Result
 
+/**
+ * Add
+ *
+ * @constructor Create empty Add
+ */
 class Add : Command, KoinComponent {
 
     private val orgs: MyCollection<Organization> by inject()
     private val description: String = "добавить новый элемент в коллекцию"
 
+    /**
+     * Action
+     *
+     * @param input
+     * @return
+     */
     override fun action(input: Input): Result? {
         val orgComp = OrganizationComparator()
         val creator = CreateOrganization()

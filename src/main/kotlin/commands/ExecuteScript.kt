@@ -6,10 +6,22 @@ import tools.*
 import tools.result.Result
 import kotlin.collections.ArrayList
 
+/**
+ * Execute script
+ *
+ * @constructor Create empty Execute script
+ */
 class ExecuteScript: Command, KoinComponent {
 
     private val absoluteWay: ArrayList<String> by inject()
     private val description: String = "считать и исполнить скрипт из указанного файла"
+
+    /**
+     * Action
+     *
+     * @param input
+     * @return
+     */
     override fun action(input: Input): Result? {
         val reader = ReadFile()
         val s: String? = reader.read(input)
@@ -29,5 +41,11 @@ class ExecuteScript: Command, KoinComponent {
 
         return null
     }
+
+    /**
+     * Get description
+     *
+     * @return
+     */
     override fun getDescription(): String = description
 }

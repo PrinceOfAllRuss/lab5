@@ -9,11 +9,23 @@ import tools.CreateOrganization
 import tools.Input
 import tools.result.Result
 
+/**
+ * Update
+ *
+ * @constructor Create empty Update
+ */
 class Update: Command, KoinComponent {
 
     private val orgs: MyCollection<Organization> by inject()
     private val description: String = "обновить значение элемента коллекции, id которого равен заданному"
-    override fun action( input: Input ): Result? {
+
+    /**
+     * Action
+     *
+     * @param input
+     * @return
+     */
+    override fun action(input: Input ): Result? {
         val orgComp = OrganizationComparator()
         val creator = CreateOrganization()
         val idOrg: String = input.getNextWord( null )
@@ -38,5 +50,11 @@ class Update: Command, KoinComponent {
 
         return null
     }
+
+    /**
+     * Get description
+     *
+     * @return
+     */
     override fun getDescription(): String = description
 }

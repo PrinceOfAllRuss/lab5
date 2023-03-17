@@ -1,16 +1,38 @@
 package tools
 
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import organization.MyCollection
 import organization.Organization
 import organization.OrganizationType
+import java.lang.Integer.max
 
 
-class CreateOrganization {
-    fun create( input: Input, org: Organization? ): Organization? {
+/**
+ * Create organization
+ *
+ * @constructor Create empty Create organization
+ */
+class CreateOrganization: KoinComponent {
+
+    private val orgs: MyCollection<Organization> by inject()
+    private var counter: Int = 0
+
+    /**
+     * Create
+     *
+     * @param input
+     * @param org
+     * @return
+     */
+    fun create(input: Input, org: Organization? ): Organization? {
 
         var organization: Organization = Organization()
         if ( org != null ) {
             organization = org
         }
+
+        organization.setId(-1)
 
         var newName: String? = ""
         var name: String? = ""
@@ -234,6 +256,18 @@ class CreateOrganization {
                 break
             }
         }
+
+        if ( orgs.size != 0 ) {
+            for ( org in orgs ) {
+                counter = max( counter, org.getId()!!  )
+            }
+            counter++
+        }
+
+        organization.setId(counter)
+
+        counter++
+
 
         return organization
     }

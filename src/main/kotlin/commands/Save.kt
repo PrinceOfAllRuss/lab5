@@ -10,10 +10,22 @@ import tools.Input
 import tools.WriteFile
 import tools.result.Result
 
+/**
+ * Save
+ *
+ * @constructor Create empty Save
+ */
 class Save: Command, KoinComponent {
 
     private val orgs: MyCollection<Organization> by inject()
     private val description: String = "сохранить коллекцию в файл"
+
+    /**
+     * Action
+     *
+     * @param input
+     * @return
+     */
     override fun action(input: Input): Result? {
 
         val xml: XStream = XStream()
@@ -42,5 +54,11 @@ class Save: Command, KoinComponent {
 
         return null
     }
+
+    /**
+     * Get description
+     *
+     * @return
+     */
     override fun getDescription(): String = description
 }

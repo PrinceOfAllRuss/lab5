@@ -8,10 +8,22 @@ import tools.Input
 import tools.result.Result
 
 
+/**
+ * Remove lower
+ *
+ * @constructor Create empty Remove lower
+ */
 class RemoveLower: Command, KoinComponent {
 
     private val orgs: MyCollection<Organization> by inject()
     private val description: String = "удалить из коллекции все элементы, меньшие, чем заданный"
+
+    /**
+     * Action
+     *
+     * @param input
+     * @return
+     */
     override fun action(input: Input): Result? {
         val count: Int = input.getNextWord(null).toInt()
         for ( org in orgs ) {
@@ -22,5 +34,11 @@ class RemoveLower: Command, KoinComponent {
 
         return null
     }
+
+    /**
+     * Get description
+     *
+     * @return
+     */
     override fun getDescription(): String = description
 }

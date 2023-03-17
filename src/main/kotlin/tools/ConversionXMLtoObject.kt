@@ -13,9 +13,20 @@ import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
+/**
+ * Conversion xml to object
+ *
+ * @constructor Create empty Conversion xml to object
+ */
 class ConversionXMLtoObject: KoinComponent {
 
     private val orgs: MyCollection<Organization> by inject()
+
+    /**
+     * Convert
+     *
+     * @param input
+     */
     fun convert(input: Input) {
 
         val reader: ReadFile = ReadFile()
