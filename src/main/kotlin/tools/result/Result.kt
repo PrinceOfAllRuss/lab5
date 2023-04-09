@@ -13,6 +13,7 @@ import organization.Organization
 class Result: KoinComponent {
     private val orgs: MyCollection<Organization> by inject()
     private var exit: Boolean?
+    private var message: String = ""
 
     constructor(exit: Boolean?) {
         this.exit = exit
@@ -25,5 +26,21 @@ class Result: KoinComponent {
      */
     fun getExit(): Boolean? {
         return exit
+    }
+
+    /**
+     * Get message
+     *
+     * @return
+     */
+    fun getMessage(): String = message
+
+    /**
+     * Set message
+     *
+     * @param message
+     */
+    fun setMessage(message: String) {
+        this.message = message
     }
 }

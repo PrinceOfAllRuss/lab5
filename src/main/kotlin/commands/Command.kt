@@ -1,6 +1,6 @@
 package commands
 
-import tools.Input
+import commands.types.ArgsType
 import tools.result.Result
 
 /**
@@ -15,7 +15,7 @@ interface Command {
      * @param input
      * @return
      */
-    fun action(input: Input): Result?
+    fun action(map: Map<String, Any>?): Result?
 
     /**
      * Get description
@@ -23,4 +23,11 @@ interface Command {
      * @return
      */
     fun getDescription(): String
+
+    /**
+     * Get type
+     *
+     * @return
+     */
+    fun getType(): ArgsType
 }

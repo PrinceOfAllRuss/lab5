@@ -1,6 +1,7 @@
 package commands
 
-import tools.Input
+import commands.types.ArgsType
+import tools.input.Input
 import tools.result.Result
 
 /**
@@ -11,6 +12,7 @@ import tools.result.Result
 class Exit : Command {
 
     private val description: String = "завершить программу (без сохранения в файл)"
+    private val type: ArgsType = ArgsType.NO_ARG
 
     /**
      * Action
@@ -18,7 +20,8 @@ class Exit : Command {
      * @param input
      * @return
      */
-    override fun action(input: Input): Result {
+    override fun action(data: Map<String, Any>?): Result {
+
         val result = Result(true)
 
         return result
@@ -30,4 +33,5 @@ class Exit : Command {
      * @return
      */
     override fun getDescription(): String = description
+    override fun getType(): ArgsType = type
 }

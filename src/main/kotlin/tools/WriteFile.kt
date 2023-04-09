@@ -1,5 +1,6 @@
 package tools
 
+import tools.input.Input
 import tools.result.Result
 import java.io.BufferedWriter
 import java.io.FileWriter
@@ -18,28 +19,31 @@ class WriteFile {
      * @param s
      * @return
      */
-    fun write(input: Input, s: String): Result? {
-        val env = input.getNextWord(null)
+    fun write(way: String, dataStr: String): Result? {
+        val env = way
+        val result = Result(false)
 
         val path = System.getenv(env)
         if (path == null) {
-            input.outMsg("Данной переменной не существует\n")
-            return null
+            result.setMessage("Данной переменной не существует\n")
+            return result
         }
 
         val writter: BufferedWriter = BufferedWriter( FileWriter(path) )
         try {
-            writter.write(s)
+            writter.write(dataStr)
         } catch (e: IOException) {
-            input.outMsg("Отказано в доступе\n")
+            result.setMessage("Отказано в доступе\n")
+            return result
         } finally {
             if ( writter != null ) {
                 writter.close()
             }
         }
 
+        result.setMessage("Запись выполнена успешно")
 
-        return null
+        return result
     }
 }
 

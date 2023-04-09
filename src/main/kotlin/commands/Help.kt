@@ -1,9 +1,12 @@
 package commands
 
+import commands.types.ArgsType
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import tools.Input
+import tools.CommandsList
+import tools.input.Input
 import tools.result.Result
+import kotlin.reflect.typeOf
 
 /**
  * Help
@@ -13,7 +16,8 @@ import tools.result.Result
 class Help : Command, KoinComponent {
 
     private val description: String = "вывести справку по доступным командам"
-    private val map: Map<String, Command> by inject()
+    private val commandsList: CommandsList by inject()
+    private var type: ArgsType = ArgsType.NO_ARG
 
     /**
      * Action
@@ -21,13 +25,13 @@ class Help : Command, KoinComponent {
      * @param input
      * @return
      */
-    override fun action(input: Input): Result? {
+    override fun action(data: Map<String, Any>?): Result {
 
-        for( key in map.keys ) {
-            input.outMsg(key + " : " + map.get(key)!!.getDescription() + "\n")
-        }
+        val s = commandsList.getDescription() + "\n"
+        val result = Result(false)
+        result.setMessage(s.toString())
 
-        return null
+        return result
     }
 
     /**
@@ -36,4 +40,5 @@ class Help : Command, KoinComponent {
      * @return
      */
     override fun getDescription(): String = description
+    override fun getType(): ArgsType = type
 }

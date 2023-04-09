@@ -1,12 +1,11 @@
 package commands
 
+import commands.types.ArgsType
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import organization.MyCollection
 import organization.Organization
 import organization.OrganizationComparator
-import tools.CreateOrganization
-import tools.Input
 import tools.result.Result
 
 /**
@@ -18,35 +17,29 @@ class Update: Command, KoinComponent {
 
     private val orgs: MyCollection<Organization> by inject()
     private val description: String = "обновить значение элемента коллекции, id которого равен заданному"
+    private val type: ArgsType = ArgsType.ARG_WITH_OBJECT
 
     /**
      * Action
      *
-     * @param input
+     * @param data
      * @return
      */
-    override fun action(input: Input ): Result? {
+    override fun action(data: Map<String, Any>?): Result? {
         val orgComp = OrganizationComparator()
-        val creator = CreateOrganization()
-        val idOrg: String = input.getNextWord( null )
-        val id = idOrg.toInt()
-        var lastOrganization: Organization? = null
+        val map: Map<String, Any>? = data
 
-        for ( org in orgs ) {
-            if ( org.getId() == id ) {
-                lastOrganization = org
-                break
-            }
+        if ( map == null ) {
+            return null
         }
 
-        val newOrganization: Organization? = creator.create( input, lastOrganization )
+        val lastOrganization: Organization = map.get("lastOrganization") as Organization
+        val newOrganization: Organization = map.get("newOrganization") as Organization
 
-        if ( newOrganization != null ) {
-            orgs.remove( lastOrganization )
-            orgs.add( newOrganization )
-        }
+        orgs.remove( lastOrganization )
+        orgs.add( newOrganization )
+
         orgs.sortWith( orgComp )
-
 
         return null
     }
@@ -57,4 +50,6 @@ class Update: Command, KoinComponent {
      * @return
      */
     override fun getDescription(): String = description
+
+    override fun getType(): ArgsType = type
 }

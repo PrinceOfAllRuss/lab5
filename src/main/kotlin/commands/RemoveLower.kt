@@ -1,10 +1,11 @@
 package commands
 
+import commands.types.ArgsType
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import organization.MyCollection
 import organization.Organization
-import tools.Input
+import tools.input.Input
 import tools.result.Result
 
 
@@ -17,6 +18,7 @@ class RemoveLower: Command, KoinComponent {
 
     private val orgs: MyCollection<Organization> by inject()
     private val description: String = "удалить из коллекции все элементы, меньшие, чем заданный"
+    private val type: ArgsType = ArgsType.ARG
 
     /**
      * Action
@@ -24,12 +26,22 @@ class RemoveLower: Command, KoinComponent {
      * @param input
      * @return
      */
-    override fun action(input: Input): Result? {
-        val count: Int = input.getNextWord(null).toInt()
+    override fun action(data: Map<String, Any>?): Result? {
+        if ( data == null ) {
+            return null
+        }
+
+        val strCount: String = data["value"].toString()
+        val count = strCount.toInt()
+        val newOrgs = MyCollection<Organization>()
+
         for ( org in orgs ) {
-            if ( org.getEmployeesCount()!! >= count ) {
-                orgs.remove( org )
+            if ( org.getEmployeesCount()!! < count ) {
+                newOrgs.add(org)
             }
+        }
+        for ( org in newOrgs ) {
+            orgs.remove(org)
         }
 
         return null
@@ -41,4 +53,5 @@ class RemoveLower: Command, KoinComponent {
      * @return
      */
     override fun getDescription(): String = description
+    override fun getType(): ArgsType = type
 }

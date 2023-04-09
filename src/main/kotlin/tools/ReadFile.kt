@@ -2,6 +2,7 @@ package tools
 
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import tools.input.Input
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.IOException

@@ -5,6 +5,8 @@ import org.koin.core.component.inject
 import organization.MyCollection
 import organization.Organization
 import organization.OrganizationType
+import tools.input.Input
+import tools.input.InputFile
 import java.lang.Integer.max
 
 
@@ -28,11 +30,11 @@ class CreateOrganization: KoinComponent {
     fun create(input: Input, org: Organization? ): Organization? {
 
         var organization: Organization = Organization()
+        organization.setId(-1)
+
         if ( org != null ) {
             organization = org
         }
-
-        organization.setId(-1)
 
         var newName: String? = ""
         var name: String? = ""

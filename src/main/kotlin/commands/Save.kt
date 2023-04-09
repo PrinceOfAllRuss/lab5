@@ -2,11 +2,12 @@ package commands
 
 
 import com.thoughtworks.xstream.XStream
+import commands.types.ArgsType
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import organization.MyCollection
 import organization.Organization
-import tools.Input
+import tools.input.Input
 import tools.WriteFile
 import tools.result.Result
 
@@ -19,6 +20,7 @@ class Save: Command, KoinComponent {
 
     private val orgs: MyCollection<Organization> by inject()
     private val description: String = "сохранить коллекцию в файл"
+    private val type: ArgsType = ArgsType.FILE
 
     /**
      * Action
@@ -26,31 +28,17 @@ class Save: Command, KoinComponent {
      * @param input
      * @return
      */
-    override fun action(input: Input): Result? {
+    override fun action(data: Map<String, Any>?): Result? {
 
-        val xml: XStream = XStream()
-        var orgsXML: StringBuilder = StringBuilder()
-        var i: Int = 0
-        var time: String
-        var list: List<String>
-        var creationDate: StringBuilder = StringBuilder()
+        val wayCollection: String = data!!["wayCollection"].toString()
+        val collectionXML: String = data["collectionXML"].toString()
+        val wayOrgs: String = data["wayOrgs"].toString()
+        val orgsXML: String = data["orgsXML"].toString()
+        val writer = WriteFile()
 
-        for ( org in orgs ) {
-            xml.alias("organization_" + i, org.javaClass)
-            orgsXML.append( xml.toXML(org) + "\n")
-            ++i
-        }
+        writer.write(wayCollection, collectionXML) //TODO something
 
-        var collectionXML: StringBuilder = StringBuilder()
-        collectionXML.append("<Collection>\n")
-        collectionXML.append("\t<dateOfCreation>" + orgs.getCreationDate() + "</dateOfCreation>\n")
-        collectionXML.append("</Collection>\n")
-
-        val writer: WriteFile = WriteFile()
-        input.outMsg("Введите переменную окружения, содержащую путь к файлу, для записи данных коллекции\n")
-        writer.write(input, collectionXML.toString())
-        input.outMsg("Введите переменную окружения, содержащую путь к файлу, для записи содержимого коллекции коллекции\n")
-        writer.write(input, orgsXML.toString())
+        writer.write(wayOrgs, orgsXML)
 
         return null
     }
@@ -61,4 +49,5 @@ class Save: Command, KoinComponent {
      * @return
      */
     override fun getDescription(): String = description
+    override fun getType(): ArgsType = type
 }

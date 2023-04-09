@@ -1,17 +1,13 @@
 package tools
 
-import modul.SingletonObject
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
-import org.koin.core.context.GlobalContext
 import organization.MyCollection
 import organization.Organization
 import organization.OrganizationType
+import tools.input.Input
+import tools.input.InputFile
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 /**
  * Conversion xml to object

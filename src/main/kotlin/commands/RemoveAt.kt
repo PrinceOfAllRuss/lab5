@@ -1,10 +1,12 @@
 package commands
 
+import com.sun.org.apache.xpath.internal.Arg
+import commands.types.ArgsType
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import organization.MyCollection
 import organization.Organization
-import tools.Input
+import tools.input.Input
 import tools.result.Result
 
 
@@ -17,6 +19,7 @@ class RemoveAt: Command, KoinComponent {
 
     private val orgs: MyCollection<Organization> by inject()
     private val description: String = "удалить элемент, находящийся в заданной позиции коллекции"
+    private val type: ArgsType = ArgsType.ARG
 
     /**
      * Action
@@ -24,8 +27,8 @@ class RemoveAt: Command, KoinComponent {
      * @param input
      * @return
      */
-    override fun action(input: Input): Result? {
-        val indexOrg: String = input.getNextWord(null)
+    override fun action(data: Map<String, Any>?): Result? {
+        val indexOrg: String = data!!["value"].toString()
         val index = indexOrg.toInt()
         orgs.removeAt(index)
 
@@ -38,4 +41,5 @@ class RemoveAt: Command, KoinComponent {
      * @return
      */
     override fun getDescription(): String = description
+    override fun getType(): ArgsType = type
 }

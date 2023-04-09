@@ -1,19 +1,15 @@
-package tools
+package tools.input
 
 import java.util.*
 import java.util.LinkedList
 
-
 /**
- * Input file
+ * Input system
  *
- * @constructor @param s
- *
- * @param s
+ * @constructor Create empty Input system
  */
-class InputFile(s: String?) : Input {
-
-    private var input: Scanner = Scanner(s)
+class InputSystem : Input {
+    private var input: Scanner = Scanner(System.`in`)
     private var list: LinkedList<String> = LinkedList()
     private var index = 0
 
@@ -24,11 +20,13 @@ class InputFile(s: String?) : Input {
      * @return
      */
     override fun getNextWord(qw: String?): String {
+        outMsg(qw)
         if (index < list.size) {
             return list[index++]
         }
         index = 0
         list = LinkedList()
+
         val words: List<String> = input.nextLine().split(" ")
         for (str in words) {
             if (!str.isBlank()) {
@@ -36,7 +34,7 @@ class InputFile(s: String?) : Input {
             }
         }
         if (list.size < 1) {
-            list.add("blank")
+            return " "
         }
         return list[index++]
     }
@@ -47,7 +45,9 @@ class InputFile(s: String?) : Input {
      * @param s
      */
     override fun outMsg(s: String?) {
-        return
+        if (s == null)
+            return
+        print(s)
     }
 
     /**

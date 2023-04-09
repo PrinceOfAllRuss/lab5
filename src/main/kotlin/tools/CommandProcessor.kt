@@ -1,8 +1,9 @@
 package tools
 
-import commands.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import tools.input.Input
+import tools.input.InputFile
 import tools.result.Result
 
 /**
@@ -12,7 +13,7 @@ import tools.result.Result
  */
 class CommandProcessor: KoinComponent {
 
-    private val map: Map<String, Command> by inject()
+    private val commandsList: CommandsList by inject()
 
     /**
      * Process
@@ -22,27 +23,40 @@ class CommandProcessor: KoinComponent {
     fun process(input: Input) {
 
         var result: Result? = Result(false)
+        var mapData: Map<String, Any>?
 
         while ( true ) {
-            var command: String = input.getNextWord(null).lowercase()
+            result?.setMessage("")
+            val command: String = input.getNextWord(null).lowercase()
 
-            if ( !map.keys.contains(command) ) {
+            if ( !commandsList.containsCommand(command) ) {
                 input.outMsg("Такой команды не существует\n")
             }
             else {
                 try {
-                    result = map.get(command)!!.action(input)
+                    val type = commandsList.getCommand(command)?.getType()
+                    if ( type == null ) {
+                        continue
+                    }
+                    mapData = commandsList.getType(type)?.processing(input)
+                    result = commandsList.getCommand(command)?.action(mapData)
+
                 } catch ( e: NumberFormatException ) {
                     input.outMsg("Неверные данные\n")
                     if ( input.javaClass == InputFile("").javaClass ) {
                         continue
                     }
+                } catch ( e: NullPointerException ) {
+                    input.outMsg("Введены не все данные\n")
                 }
             }
-
+            if ( result != null ) {
+                input.outMsg(result.getMessage())
+            }
             if (result?.getExit() == true) {
                 break
             }
+
         }
 
     }
